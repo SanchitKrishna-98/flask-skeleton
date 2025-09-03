@@ -19,7 +19,7 @@ class TestSanchitRoute:
     def test_sanchit_route_content(self, client):
         """Test that the /sanchit route returns the correct content."""
         response = client.get('/sanchit')
-        assert response.data.decode('utf-8') == 'I am Sanchit'
+        assert response.data.decode('utf-8') == 'I am sanju'
     
     def test_sanchit_route_method_not_allowed(self, client):
         """Test that POST method is not allowed on /sanchit route."""
@@ -44,6 +44,24 @@ class TestHomeRoute:
         response = client.get('/')
         assert response.data.decode('utf-8') == 'Hello, Flask Skeleton!'
 
+class TestNewHomeRoute:
+    """Test cases for the new /home route."""
+    
+    def test_new_home_route_exists(self, client):
+        """Test that the /home route exists and is accessible."""
+        response = client.get('/home')
+        assert response.status_code == 200
+    
+    def test_new_home_route_content(self, client):
+        """Test that the /home route returns the correct content."""
+        response = client.get('/home')
+        assert response.data.decode('utf-8') == 'This is my home'
+    
+    def test_new_home_route_method_not_allowed(self, client):
+        """Test that POST method is not allowed on /home route."""
+        response = client.post('/home')
+        assert response.status_code == 405
+
 class TestAboutRoute:
     """Test cases for the about route."""
     
@@ -67,7 +85,7 @@ class TestGeneralAppBehavior:
     
     def test_app_has_correct_routes(self, client):
         """Test that all expected routes are accessible."""
-        routes = ['/', '/sanchit', '/about']
+        routes = ['/', '/sanchit', '/about', '/home']
         for route in routes:
             response = client.get(route)
             assert response.status_code == 200, f"Route {route} should be accessible"
